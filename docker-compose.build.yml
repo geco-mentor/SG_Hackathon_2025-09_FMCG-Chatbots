@@ -1,0 +1,51 @@
+# docker-compose.build.yml for BUILDING images from source
+# Use this when you have the Python scripts and want to build fresh images
+#
+# Required files in same folder:
+#   - Dockerfile.clarity
+#   - Dockerfile.nibbles
+#   - Clarity_patch_v0_0_1.py
+#   - Nibbles_patch_v0_0_1.py
+#   - llm.env
+#   - Team_Cashew_Synthetic_Data/ (folder with CSV files)
+#
+# Usage:
+#   docker-compose -f docker-compose.build.yml up --build
+#   docker-compose -f docker-compose.build.yml down
+
+version: '3.8'
+
+services:
+  clarity:
+    build:
+      context: .
+      dockerfile: Dockerfile.clarity
+    image: clarity:v1                # Tags the built image
+    container_name: clarity-chatbot
+    ports:
+      - "5000:8080"
+    environment:
+      - PORT=8080
+      - DATA_DIR=/app/data
+    env_file:
+      - llm.env
+    volumes:
+      - ./Team_Cashew_Synthetic_Data:/app/data:ro
+    restart: unless-stopped
+
+  nibbles:
+    build:
+      context: .
+      dockerfile: Dockerfile.nibbles
+    image: nibbles:v1                # Tags the built image
+    container_name: nibbles-chatbot
+    ports:
+      - "5001:8080"
+    environment:
+      - PORT=8080
+      - DATA_DIR=/app/data
+    env_file:
+      - llm.env
+    volumes:
+      - ./Team_Cashew_Synthetic_Data:/app/data:ro
+    restart: unless-stopped

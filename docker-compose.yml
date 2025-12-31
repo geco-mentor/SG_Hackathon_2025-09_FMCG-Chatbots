@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  clarity:
+    image: clarity:v1
+    container_name: clarity-chatbot
+    ports:
+      - "5000:8080"
+    environment:
+      - PORT=8080
+      - DATA_DIR=/app/data
+    env_file:
+      - llm.env
+    volumes:
+      - ./Team_Cashew_Synthetic_Data:/app/data:ro
+    restart: unless-stopped
+
+  nibbles:
+    image: nibbles:v1
+    container_name: nibbles-chatbot
+    ports:
+      - "5001:8080"
+    environment:
+      - PORT=8080
+      - DATA_DIR=/app/data
+    env_file:
+      - llm.env
+    volumes:
+      - ./Team_Cashew_Synthetic_Data:/app/data:ro
+    restart: unless-stopped

@@ -1,0 +1,27 @@
+# Dockerfile for Nibbles chatbot (customer-facing product assistant)
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies (gcc needed for some Python packages)
+RUN apt-get update && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    flask \
+    pandas \
+    python-dotenv \
+    requests \
+    rapidfuzz \
+    Unidecode \
+    openpyxl
+
+# Copy the application script
+COPY Nibbles_patch_v0_0_1.py .
+
+# Default port (Azure typically sets PORT env variable)
+ENV PORT=8080
+
+EXPOSE 8080
+
+CMD ["python", "Nibbles_patch_v0_0_1.py"]
