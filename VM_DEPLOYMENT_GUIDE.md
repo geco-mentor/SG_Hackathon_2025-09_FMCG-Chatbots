@@ -1,6 +1,6 @@
 # 🖥️ VM Deployment Guide
 
-Deploy chatbots on your Bitdeer VM so anyone can access via URL.
+Deploy chatbots on your Bitdeer VM so anyone can access via URL. Guide was originally written for deployment on Bitdeer's cloud, but the concepts should be universally applicable.
 
 ---
 
