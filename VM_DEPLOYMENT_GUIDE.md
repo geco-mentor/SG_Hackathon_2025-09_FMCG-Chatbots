@@ -1,4 +1,38 @@
-```markdown
+Good catch — you’re right on both points. 👍
+Here’s **what went wrong** and then a **corrected, clean Markdown version** you can copy straight into GitHub.
+
+---
+
+## Why the tree wasn’t in a Markdown block
+
+In Markdown, **directory trees must be inside a fenced code block** (triple backticks).
+In my earlier paste, the tree *looked* like code but wasn’t consistently fenced, so GitHub would render it as normal text.
+
+✅ Fix: wrap the entire tree in:
+
+````markdown
+```text
+(tree here)
+```
+````
+
+---
+
+## Why “Step 1” looked missing
+
+I **renumbered** steps after adding a new “Prerequisites” section, but didn’t explicitly label the SSH step as **Step 1** clearly enough.
+
+✅ Fix: explicitly number **every step**, starting from Step 1.
+
+---
+
+## ✅ Corrected, final Markdown (clean + GitHub-ready)
+
+**This version fixes both issues. Copy–paste this exactly.**
+
+---
+
+````markdown
 # 🖥️ VM Deployment Guide (Docker, TAR-based)
 
 This guide explains how to deploy the **Clarity** and **Nibbles** chatbots onto a cloud VM using **prebuilt Docker images (`.tar`)** and **Docker Compose**.
@@ -27,12 +61,11 @@ The instructions are written for **Ubuntu VMs** and assume Docker images are bui
 
 ---
 
-## 📁 VM Directory Layout (Expected)
+## 📁 Expected VM Directory Layout
 
 All chatbot assets live under:
 
-```
-
+```text
 /mnt/data/cashew-chatbot
 ├── Team_Cashew_Synthetic_Data/
 │   ├── sku_master.csv
@@ -46,7 +79,6 @@ All chatbot assets live under:
 ├── docker-compose.yml
 ├── clarity_v1.tar
 └── nibbles_v1.tar
-
 ````
 
 ---
@@ -55,7 +87,7 @@ All chatbot assets live under:
 
 ```bash
 ssh ubuntu@YOUR_VM_IP
-````
+```
 
 ---
 
@@ -122,7 +154,6 @@ scp -r templates Team_Cashew_Synthetic_Data \
 
 ```bash
 cd /mnt/data/cashew-chatbot
-
 docker load -i nibbles_v1.tar
 docker load -i clarity_v1.tar
 ```
@@ -191,15 +222,13 @@ docker compose ps
 
 ## 🔓 Step 8: Open Firewall Ports
 
-On the VM:
-
 ```bash
 sudo ufw allow 5000
 sudo ufw allow 5001
 sudo ufw status
 ```
 
-Also ensure your **cloud provider firewall / NSG** allows inbound TCP on ports **5000** and **5001**.
+Ensure your cloud provider firewall also allows inbound TCP on **5000** and **5001**.
 
 ---
 
@@ -229,33 +258,6 @@ docker compose down
 
 ---
 
-## 🔄 Updating the Deployment
-
-### Update HTML / Logo
-
-```bash
-scp -r templates ubuntu@YOUR_VM_IP:/mnt/data/cashew-chatbot/
-docker compose restart
-```
-
-### Update CSV Data
-
-```bash
-scp -r Team_Cashew_Synthetic_Data ubuntu@YOUR_VM_IP:/mnt/data/cashew-chatbot/
-docker compose restart
-```
-
-### Update Docker Image
-
-1. Rebuild image locally
-2. Export `.tar`
-3. Upload to VM
-4. Load image
-5. Update tag in `docker-compose.yml`
-6. Restart containers
-
----
-
 ## ❓ Troubleshooting
 
 | Issue                     | Fix                                |
@@ -267,11 +269,5 @@ docker compose restart
 | Container restarting      | `docker logs <container>`          |
 
 ```
-
----
-
-If you want, next I can:
-- slim this into a **1-page Quick Start**
-- add an **Azure-specific appendix**
-- or create a **clean README.md** version for your repo root
+Just say 👍
 ```
