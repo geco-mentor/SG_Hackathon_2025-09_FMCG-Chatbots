@@ -1,34 +1,4 @@
-Good catch — you’re right on both points. 👍
-Here’s **what went wrong** and then a **corrected, clean Markdown version** you can copy straight into GitHub.
-
----
-
-## Why the tree wasn’t in a Markdown block
-
-In Markdown, **directory trees must be inside a fenced code block** (triple backticks).
-In my earlier paste, the tree *looked* like code but wasn’t consistently fenced, so GitHub would render it as normal text.
-
-✅ Fix: wrap the entire tree in:
-
-````markdown
-```text
-(tree here)
-```
-````
-
----
-
-## Why “Step 1” looked missing
-
-I **renumbered** steps after adding a new “Prerequisites” section, but didn’t explicitly label the SSH step as **Step 1** clearly enough.
-
-✅ Fix: explicitly number **every step**, starting from Step 1.
-
----
-
-## ✅ Corrected, final Markdown (clean + GitHub-ready)
-
-**This version fixes both issues. Copy–paste this exactly.**
+## ✅ Updated Markdown 
 
 ---
 
